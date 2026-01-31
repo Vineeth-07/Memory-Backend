@@ -53,6 +53,10 @@ model Session {
   created_at         DateTime  @default(now())
   expires_at         DateTime
   revoked_at         DateTime?
+
+  @@unique([user_id, user_agent]) // FOR ONE SESSION PER DEVICE ACCESS
+  @@index([user_id]) // INDEXING FOR FASTER READS
+  @@index([refresh_token_hash]) // INDEXING FOR FASTER READS
 }
 
 model Audio_Records {
